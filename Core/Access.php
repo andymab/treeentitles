@@ -16,6 +16,7 @@ class Access {
         ];
     }
 
+    
     /**
      * Проверка доступа к методу
      * @param string method
