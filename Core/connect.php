@@ -87,14 +87,15 @@ class Connect {
      * @return object fetchall()
      */
     public static function get_content($table, $select = ["*"], $order = '') {
+        $map = self::get_maps($table);
+        $whereDeletedNull = array_key_exists('delete_at',$map) ? "WHERE `delete_at`= 0" : ''; 
         $select = implode(', ', $select);
         if ($order) {
             $order = " ORDER BY " . $order;
         }
 
         $db = self::_self()->mysql();
-        $sth = $db->prepare("SELECT {$select} FROM {$table} {$order}");
-//        print_r($sth);exit;
+        $sth = $db->prepare("SELECT {$select} FROM {$table} {$whereDeletedNull} {$order} ");
         $sth->execute();
         return $sth->fetchall();
     }
@@ -116,7 +117,7 @@ class Connect {
 
         try {
             $sth = $db->prepare("INSERT LOW_PRIORITY IGNORE INTO " . htmlspecialchars($table) . (\Sfn::implode_array($map)));
-//            print_r($sth);die;
+           // print_r($sth);die;
             foreach ($map as $key => $val) {
                 $sth->bindParam(":$key", ...[isset($row[$key]) ? $row[$key] : '', $val]);
             }

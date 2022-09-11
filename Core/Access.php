@@ -1,6 +1,7 @@
 <?php
 
-class Access {
+class Access
+{
 
     public static $user_data = [
         'login' => 'no login',
@@ -8,7 +9,8 @@ class Access {
         'roles' => ['Not_Autorized'],
     ];
 
-    public function __construct() {
+    public function __construct()
+    {
         self::$user_data = [
             'login' => 'no login',
             'id' => NULL,
@@ -16,14 +18,15 @@ class Access {
         ];
     }
 
-    
+
     /**
      * Проверка доступа к методу
      * @param string method
      * @param array
      * @return boolean true false
      */
-    public static function access($method, $controller_access, $id = '') {
+    public static function access($method, $controller_access, $id = '')
+    {
         if (array_key_exists($method, $controller_access)) {
             $array = $controller_access[$method];
         } elseif (array_key_exists('key', $controller_access)) {
@@ -31,8 +34,8 @@ class Access {
             $key = filter_input(INPUT_GET, 'key');
             if ($key === $hash) {
                 return true;
-            } else $array=[];
-//            echo $id."-<br>";
+            } else $array = [];
+            //            echo $id."-<br>";
         } elseif (array_key_exists('*', $controller_access)) {
             $array = $controller_access['*'];
         } else {
@@ -60,14 +63,15 @@ class Access {
      * @param string email
      * @return boolean прошла или нет
      */
-    public static function set_user($psw = null, $email = null) {
+    public static function set_user($psw = null, $email = null)
+    {
         $db = Connect::_self()->mysql();
         if ($psw and $email) {
             $sth = $db->prepare("SELECT * FROM users__ WHERE email = :email AND psswd=:psswd LIMIT 1");
             $sth->bindParam(':email', ...[$email, \PDO::PARAM_STR]);
             $sth->bindParam(':psswd', ...[md5(md5($psw) . IS_CONFIG_SALT), \PDO::PARAM_STR]);
             $sth->execute();
-        
+
             if (!$sth->RowCount()) {
                 return false;
             }
@@ -78,7 +82,14 @@ class Access {
             foreach (self::$user_data as $k => $v) {
                 self::$user_data[$k] = isset($res[$k]) ? $res[$k] : '';
             }
-
+            //проверим перед установкой может у кого есть sid
+            $sid = Connect::get_content_keys('users__', ['sid' => Session::get_session_id()]);
+            if (\Sfn::status($sid)) {
+                $sth = $db->prepare("UPDATE users__ SET sid=:sid WHERE id=:id");
+                $sth->bindParam(':sid', ...[$sid['data'][0]->id, \PDO::PARAM_STR]);
+                $sth->bindParam(':id', ...[$sid['data'][0]->id, \PDO::PARAM_INT]);
+                $sth->execute();
+            }
             $sth = $db->prepare("UPDATE users__ SET sid=:sid WHERE id=:id");
             $sth->bindParam(':sid', ...[Session::get_session_id(), \PDO::PARAM_STR]);
             $sth->bindParam(':id', ...[$uid, \PDO::PARAM_INT]);
@@ -99,19 +110,21 @@ class Access {
         }
     }
 
-    public static function set_key($act, $key) {
+    public static function set_key($act, $key)
+    {
         return MD5($act . $key);
     }
 
-    public static function ishe($role) {
+    public static function ishe($role)
+    {
         return in_array($role, self::$user_data['roles']);
     }
 
     /**
      *  @return bool
      */
-    public static function isAdmin() {
+    public static function isAdmin()
+    {
         return in_array('Admin', self::$user_data['roles']);
     }
-
 }

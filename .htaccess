@@ -1,0 +1,17 @@
+php_flag display_errors on 
+Options -Indexes
+
+
+
+AddDefaultCharset UTF-8
+AddType application/x-httpd-php .php .htm .html
+
+ErrorDocument 401 /401.html
+
+RewriteEngine on
+
+RewriteCond %{REQUEST_FILENAME} !-f 
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ index.php?action=$1 [L,QSA]
+
+

@@ -1,0 +1,25 @@
+.modal {
+    width: 300px;
+    margin: 2rem auto;
+    max-height: 320px;
+    display: none;
+    background-color: #faebd7;
+    padding: 1rem;
+}
+
+.modal.show {
+    display: block;
+}
+
+form{
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+}
+form > label,h6{
+    margin-bottom: .8rem;
+}
+input {
+    height: 1.45rem;
+    padding: 0.2rem .8rem;
+}

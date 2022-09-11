@@ -57,8 +57,7 @@ class Views
         if( !file_exists( $template_file ) ) {
             return "отсутствует файл представления tpl: {$template}";
         }
-
-        ob_start();
+         ob_start();
             require ( $template_file );
         $content = ob_get_clean();
 
@@ -75,9 +74,11 @@ class Views
                 echo 'отсутствует основное представление';
             }
             require $layout_file;
+
         } else {
             echo $content;
         }
+
     }
 
     public function xml( $f )
