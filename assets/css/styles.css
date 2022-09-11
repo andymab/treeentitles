@@ -123,4 +123,18 @@ ol.breadcrumb > li:first-child:before {
   ul ul{
     margin-left: 1.2rem;
   }
+
+  [type="text"], textarea {
+    width: 100%;
+    max-width: 100%;
+    padding: 2px 10px;
+    box-sizing: border-box;
+    margin-bottom: 0.8rem;
+    font-size: 18px;
+}
+input[type="submit"],button{
+    padding: 0.2rem 0.8rem;
+    margin-bottom: 1rem;
+    margin-right: 0.5rem;
+}
 /* bs-icon-sm bs-icon-rounded bs-icon-primary d-flex justify-content-center align-items-center me-2 bs-icon */

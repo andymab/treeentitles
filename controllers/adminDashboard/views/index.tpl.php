@@ -59,8 +59,8 @@ function build_tree($rows, $parent_id)
                             <?php endif; ?>
                             <div class="actionitem">
                                 <a href="#" class="addItem" title="Добавить в раздел"><span class="item-span">&#10010;</span></a>
-                                <a href="#" class="editItem" title="Редактировать раздел"><span class="item-span">&#9999;</span></a>
-                                <a href="#" class="removeItem" title="Удалить раздел"><span class="item-span"><strong>X</strong></span></a>
+                                <a href="#" class="editItem" title="Редактировать раздел"><span class="item-span">&#9998;</span></a>
+                                <a href="#" class="removeItem" title="Удалить раздел"><span class="item-span"><strong>&#10006;</strong></span></a>
                             </div>
                         </div>
                         <div class="childs">

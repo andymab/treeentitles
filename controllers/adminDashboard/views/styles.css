@@ -35,11 +35,6 @@ form {
     align-items: center;
 }
 
-[type="text"],
-textarea {
-    width: 100%;
-}
-
 .item-block {
     position: relative;
     padding: 0.2rem 0.2rem;
