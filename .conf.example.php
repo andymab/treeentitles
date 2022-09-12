@@ -6,7 +6,7 @@
 @define('DB_PSWD', 'mysql');
 @define('DB_HOST', 'localhost');
 @define('DB_CHARSET', 'utf8');
-@define('IS_HOST', "http://" . $_SERVER['HTTP_HOST'] . '/');
+@define('IS_HOST', "http://" . $_SERVER['HTTP_HOST']);
 @define('IS_CONFIG_SALT', 'mabTree@l#!mab');
 
 date_default_timezone_set('Europe/Moscow');

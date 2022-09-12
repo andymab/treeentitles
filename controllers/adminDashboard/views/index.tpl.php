@@ -9,7 +9,7 @@ $jss = '';
 
 $path = str_replace(rPATH, '', __DIR__);
 $css = [
-    $path . DIRECTORY_SEPARATOR . 'styles.css?h=' . filemtime(__DIR__ .  DIRECTORY_SEPARATOR . 'styles.css')
+   IS_HOST . '/assets/css/admin.css?h=' . filemtime( rPATH . '/assets/css/admin.css')
 ];
 
 
@@ -25,7 +25,7 @@ function end_section()
 
 
 $js = [
-    $path . DIRECTORY_SEPARATOR . 'index.js?h=' . filemtime(__DIR__ .  DIRECTORY_SEPARATOR . 'index.js')
+    IS_HOST . '/assets/js/admin.js?h=' . filemtime(rPATH . '/assets/js/admin.js')
 ];
 
 

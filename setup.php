@@ -1,5 +1,6 @@
 <?php
 require __DIR__ . "/.conf.php";
+header("Location: /");
 
 mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 $db = mysqli_connect(DB_HOST, DB_USER, DB_PSWD, DB_NAME);
@@ -49,6 +50,7 @@ $row = [
     'roles'=>json_encode(["Admin","User"])
 ];
 
+
 $q = \Connect::add_row('users__', $row);
 if (\Sfn::status($q)) {
     echo "Пользователь с правами Admin добавлен";
@@ -57,4 +59,3 @@ if (\Sfn::status($q)) {
      exit;
 }
 
-header("Location: /");

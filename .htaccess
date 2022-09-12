@@ -1,17 +1,22 @@
-php_flag display_errors on 
+SetEnvIfNoCase User-Agent "^Yandex" search_bot
+SetEnvIfNoCase User-Agent "^Googlebot" search_bot
+
 Options -Indexes
-
-
 
 AddDefaultCharset UTF-8
 AddType application/x-httpd-php .php .htm .html
 
-ErrorDocument 401 /401.html
 
-RewriteEngine on
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
 
-RewriteCond %{REQUEST_FILENAME} !-f 
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^(.*)$ index.php?action=$1 [L,QSA]
+  RewriteCond %{REQUEST_URI} \.(jpg|jpeg|gif|png|ico)$ [NC]
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteRule .*$ /assets/no-image.png [L]
 
-
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteRule ^(.*)$ index.php?action=$1 [QSA,L]
+</IfModule>

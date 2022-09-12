@@ -6,9 +6,10 @@ $layout = "layout";
 $js = [];
 $jss = '';
 
- $path = str_replace(rPATH, '', __DIR__);
+//$path = str_replace(rPATH, '', __DIR__);
+$pathcss = "/assets/css";
  $css = [
-     $path . '/assets/css/styles.css?h=' . filemtime(__DIR__ . '/' . 'assets/css/styles.css')
+    IS_HOST . $pathcss . 'login.css?h=' . filemtime(rPATH . '/assets/css/login.css')
  ];
 
 
